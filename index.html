@@ -2,19 +2,121 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Paper-Scissor-Stone</title>
-  <link href="pss-styles.css" rel="stylesheet" type="text/css" />
+  <title>BAREBONES Paper-Scissors-Stone</title>
+  <link href="barebones.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<div align="center">
   <h1>Paper! Scissors! Stone!</h1>
   <p style="margin-bottom: 36px; text-align: center;">Click a button!  Maybe you win!  Maybe you LOSE!</p>
   <div class="buttons">
-    <button onclick="inputValue('Paper')">PAPER</button>
-    <button onclick="inputValue('Scissors')">SCISSORS</button>
-    <button onclick="inputValue('Stone')">STONE</button>
+    <button id="paperButton">PAPER</button>
+    <button id="scissorsButton">SCISSORS</button>
+    <button id="stoneButton">STONE</button>
   </div>
-  <script>
-    // Your JavaScript goes here!
-  </script>
+  <p></p>
+  <p></p>
+  <div id="score">Wins: <span id="winCount">0</span> Losses: <span id="loseCount">0</span></div>
+  <p></p>
+  <div id="result"></div>
+  
+  
+
+</div>
+
+<script>
+
+// Get the player choice
+var paperButton = document.getElementById("paperButton");
+var scissorsButton = document.getElementById("scissorsButton");
+var stoneButton = document.getElementById("stoneButton");
+var playerChoice;
+
+paperButton.addEventListener("click", function() {
+  playerChoice = "paper";
+  compareChoices();
+});
+
+scissorsButton.addEventListener("click", function() {
+  playerChoice = "scissors";
+  compareChoices();
+});
+
+stoneButton.addEventListener("click", function() {
+  playerChoice = "stone";
+  compareChoices();
+});
+
+// Generate a random number between 0 and 2
+function getComputerChoice() {
+  const randomNumber = Math.floor(Math.random() * 3);
+
+  // Use the random number to return a computer choice
+  switch (randomNumber) {
+    case 0:
+      return 'paper';
+    case 1:
+      return 'scissors';
+    case 2:
+      return 'stone';
+  }
+}
+
+// Initialize the counters
+var winCount = 0;
+var loseCount = 0;
+
+// Get the score element
+var scoreElement = document.getElementById("score");
+// Get the result element
+var resultElement = document.getElementById("result");
+
+// Compare the computer and player choices
+function compareChoices() {
+  var computerChoice = getComputerChoice();
+
+  resultElement.innerHTML = "";
+  
+  switch (true) {
+    case computerChoice === playerChoice:
+      resultElement.innerHTML = "It's a tie.";
+      break;
+    case (
+      (computerChoice === "paper" && playerChoice === "stone") ||
+      (computerChoice === "scissors" && playerChoice === "paper") ||
+      (computerChoice === "stone" && playerChoice === "scissors")
+    ):
+      resultElement.innerHTML = "You lose, " + computerChoice + " beats " + playerChoice + ".";
+      loseCount++; // Increment the lose count
+      break;
+    default:
+      resultElement.innerHTML = "You win, " + playerChoice + " beats " + computerChoice + ".";
+      winCount++; // Increment the win count
+      break;
+  }
+  // Update the score display
+  scoreElement.innerHTML = "Wins: " + winCount + " | Losses: " + loseCount;
+
+  // Check win and loss counts
+  winLose();
+}
+
+// Count the number of wins and losses
+function winLose() {
+  if (winCount === 3) {
+    alert("WINNER!");
+  } else if (loseCount === 3) {
+    alert("LOSER!");
+  }
+}
+
+// Ask if they want to play again
+
+// If yes then reset the game
+
+//If no then clear the page and print bye
+
+</script>
+
 </body>
 </html>
