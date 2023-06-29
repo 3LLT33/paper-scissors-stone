@@ -97,24 +97,28 @@ function compareChoices() {
   // Update the score display
   scoreElement.innerHTML = "Wins: " + winCount + " | Losses: " + loseCount;
 
-  // Check win and loss counts
+// Count the number of wins and losses
   winLose();
 }
 
-// Count the number of wins and losses
+// Ask if they want to play again
 function winLose() {
   if (winCount === 3) {
-    alert("WINNER!");
+    var playAgain = confirm("WINNER!\nPlay again?");
+    if (playAgain) {
+      location.reload() // OK reloads the page
+    } else {
+      window.location.href = "https://3llt33.github.io/OMPage/";
+    }
   } else if (loseCount === 3) {
-    alert("LOSER!");
+    var playAgain = confirm("LOSER!\nPlay again?");
+    if (playAgain) {
+      location.reload() // OK relaods the page
+    } else {
+      window.location.href = "https://3llt33.github.io/OMPage/";
+    }
   }
 }
-
-// Ask if they want to play again
-
-// If yes then reset the game
-
-//If no then clear the page and print bye
 
 </script>
 
